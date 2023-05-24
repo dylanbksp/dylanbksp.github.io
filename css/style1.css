@@ -1,0 +1,46 @@
+@font-face {
+	font-family: W95FA;
+	src: url(../fonts/w95fa.woff) format("woff");
+	src: url(../fonts/w95fa.woff2) format("woff2"),
+		 url(../fonts/W95FA.otf) format("otf");
+
+	font-weight: normal;
+    font-style: normal;
+
+}
+body {
+	background-color: #088; 
+}
+p {
+	font-family: W95FA;
+}
+.border {
+	border-style: outset;
+	border-color: #FFF;
+	background-color: #CCC;
+}
+#main {
+	width: 500px;
+}
+.controlbuttons {
+	display: flex;
+	justify-content: right;
+}
+.controlbutton {
+	width: 15px;
+	height: 15px;
+	margin: 2px;
+	color: #000;
+}
+.header {
+	background: linear-gradient(90deg, #02A 0%, #09F 100%);
+	color: #FFF;
+	padding: 5px 5px 5px 5px;
+	text-align: left;
+	display: inline-block;
+}
+.center {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
