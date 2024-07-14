@@ -1,18 +1,27 @@
 @font-face {
 	font-family: W95FA;
-	src: url(../fonts/w95fa.woff) format("woff");
-	src: url(../fonts/w95fa.woff2) format("woff2"),
-		 url(../fonts/W95FA.otf) format("otf");
+	src: url(../fonts/W95FA/w95fa.woff) format("woff");
+	src: url(../fonts/W95FA/w95fa.woff2) format("woff2"),
+		 url(../fonts/W95FA/W95FA.otf) format("otf");
 
 	font-weight: normal;
     font-style: normal;
-
+}
+@font-face {
+	font-family: FSEX302;
+	src: url(../fonts/FSEX302/FSEX302.ttf) format("ttf");
+	src: url(../fonts/FSEX302/FSEX302.woff) format("woff"),
+		 url(../fonts/FSEX302/FSEX302.otf) format("otf");
+	
+	font-weight: normal;
+	font-style: normal;
 }
 body {
 	background-color: #088; 
 }
 p {
 	font-family: W95FA;
+	white-space: pre-line;
 }
 .border {
 	border-style: outset;
@@ -31,16 +40,62 @@ p {
 	height: 15px;
 	margin: 2px;
 	color: #000;
+	user-select: none;
+}
+.controlbuttontext {
+	position: relative;
+	bottom: 21px;
 }
 .header {
-	background: linear-gradient(90deg, #02A 0%, #09F 100%);
+	background: linear-gradient(90deg, #018 0%, #09F 100%);
 	color: #FFF;
-	padding: 5px 5px 5px 5px;
-	text-align: left;
-	display: inline-block;
+	/* padding: 5px 5px 5px 5px; */
+	width: 100%;
+	display: inline-flex;
+	justify-content: flex-start;
+	height: 25px;
+}
+.title {
+	position: relative;
+	bottom: 10px;
 }
 .center {
 	width: 100%;
 	display: flex;
 	justify-content: center;
+}
+.inlineblock {
+	display: inline-block;
+}
+.icon {
+	width: 16px;
+	height: 16px;
+	user-select: none;
+	margin: 4px;
+}
+.hotbar {
+	display: flex;
+	justify-content: inline-block;
+	margin: 2px;
+	gap: 8px;
+}
+.hotbarbutton {
+	margin: 2px;
+	user-select: none;
+}
+.notepadcontent {
+	background-color: #FFF;
+	margin: 2px;
+}
+.notepadcontent > p {
+	font-family: FSEX302;
+	font-size: 18px;
+}
+.leftwindow {
+	float: left;
+}
+.rightwindow {
+	position: absolute; 
+	right: 20%; 
+	width: 300px;
 }
