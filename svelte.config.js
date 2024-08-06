@@ -8,9 +8,11 @@ const config = {
 		adapter: adapter({
 			// fallback: '404.html'   NOTE: Add this later.
 		}),
+		/*
 		paths: {
 			base: process.env.NODE_ENV === 'production' ? '/bkspwebsite' : '',
 		}
+		*/
 	}
 };
 
