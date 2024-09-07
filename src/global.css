@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'Beiruti';
+    font-style: normal;
+    src: url('/fonts/Beiruti-VariableFont_wght.ttf');
+}
 body {
     background-color: #EEE;
     margin: 0;
@@ -6,19 +11,28 @@ body {
     display: flex;
     flex-direction: column;
 }
-p,h1 {
+* {
     color: #222;
+    font-family: 'Beiruti';
+}
+p {
+    font-size: 16pt;
+}
+h1 {
+    font-size: 32pt;
 }
 a {
-    color: #333;
+    font-size: 16pt;
+    color: #000;
     text-decoration: none;
-    background-color: #CCC;
-    border: 2px solid #CCC;
+    background-color: rgba(0,0,0,0.075);
+    border: 2px solid rgba(0,0,0,0.075);
     border-radius: 5px;
+    animation: background-color 2s;
 }
 a:hover {
-    background-color: #CCC;
-    border: 2px solid #CCC;
+    background-color: rgba(0,0,0,0.05);
+    animation: background-color 2s;
 }
 #mainnav {
     list-style-type: none;

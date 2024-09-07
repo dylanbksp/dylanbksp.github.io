@@ -7,7 +7,7 @@
     <li><a href="/error">Error</a></li>
     <li><a href="/error">Error</a></li>
     <li><a href="/error">Error</a></li>
-    <li><a href="/error">Error</a></li>
+    <li><a href="/error">Very Long Error</a></li>
 </ul>
 
 <div id="maincontent"><slot></slot></div>
