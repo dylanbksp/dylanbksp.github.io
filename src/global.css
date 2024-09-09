@@ -1,7 +1,7 @@
 @font-face {
-    font-family: 'Beiruti';
+    font-family: 'Nunito';
     font-style: normal;
-    src: url('/fonts/Beiruti-VariableFont_wght.ttf');
+    src: url('/fonts/Nunito-VariableFont_wght.ttf');
 }
 body {
     background-color: #EEE;
@@ -13,16 +13,21 @@ body {
 }
 * {
     color: #222;
-    font-family: 'Beiruti';
+    font-family: 'Nunito';
 }
 p {
-    font-size: 16pt;
+    font-size: 14pt;
 }
 h1 {
-    font-size: 32pt;
+    font-size: 28pt;
+}
+#mainnav > a {
+    font-size: 12pt;
+}
+a:not(#mainnav >) {
+    font-size: 14pt;
 }
 a {
-    font-size: 16pt;
     color: #000;
     text-decoration: none;
     background-color: rgba(0,0,0,0.075);
