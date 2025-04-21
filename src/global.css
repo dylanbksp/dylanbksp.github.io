@@ -1,59 +1,132 @@
 @font-face {
-    font-family: 'Nunito';
-    font-style: normal;
-    src: url('/fonts/Nunito-VariableFont_wght.ttf');
+    font-family: 'Segoe UI';
+    font-weight: 1 999;
+    src: url('/fonts/SegoeUI-VF.ttf') format('truetype-variations');
 }
 body {
-    background-color: #EEE;
-    margin: 0;
+    background-color: #DAF3FD;
+    width: 984px;
+    margin: 0 auto;
     padding: 0;
-    box-sizing: border-box;
+}
+#main-background {
+    background-image: url('/images/bg_span_wol.gif');
+    background-repeat: repeat-y;
+    min-height: 100vh;
+}
+#page-frame {
+    width: 958px;
+    padding: 0 12px 0 14px;
+}
+#navbar-background {
+    background-image: url('/images/header_bkg_wol.jpg');
+    background-repeat: no-repeat;
+    height: 129px;
+    margin: 0 -12px 0 -14px;
+}
+#navbar {
+    padding: 0 calc(12px + 25px) 0 calc(14px + 25px);
+}
+#dylanbksp-logo-header {
+    margin: 34px 0 14px 1px; 
+}
+#main-nav {
+    list-style-type: none;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    gap: 24px;
+    padding: 0;
 }
-* {
-    color: #222;
-    font-family: 'Nunito';
+#main-nav > li > a {
+    font-size: 100%;
+    line-height: 15.8pt;
+    color: #0066CC;
+    text-decoration: none;
 }
-p {
-    font-size: 14pt;
+#main-nav > li > a:hover {
+    color: #006699;
 }
-h1 {
-    font-size: 28pt;
+#main-content {
+    padding: 0 15px 0 20px;
+    min-height: calc(100vh - 129px);
 }
-#mainnav > a {
-    font-size: 12pt;
+#site-map {
+    display: block;
+    font-size: 0;
 }
-a:not(#mainnav >) {
-    font-size: 14pt;
+#site-explore {
+    padding: 0 20px;
+    display: flex;
+    flex-direction: row;
+    gap: 7px;
+    align-items: stretch;
+}
+#site-explore > a {
+    text-decoration: none;
+    color: #4EB0E9;
+}
+#site-explore > a:hover {
+    text-decoration: underline;
+}
+#site-columns {
+    display: flex;
+    flex-direction: row;
+}
+.site-column > ul {
+    list-style-type: none;
+    padding: 0 20px 10px;
+}
+.site-column > ul > li {
+    padding: 0;
+    margin: 0;
+    line-height: 1em;
+}
+.site-column > ul > li > * {
+    text-decoration: none;
+    color: #4E4E4E;
+    font-size: 10px;
+    padding: 0;
+    margin: 0;
+    line-height: 1em;
+}
+.site-column > ul > li > a:hover {
+    color: #4EB0E9;
+}
+.site-column > ul > li > a:active {
+    color: #F58220;
+}
+.site-link-header {
+    font-weight: bold;
+}
+#site-footer {
+    background-image: url('/images/bg_footer_image_wol.jpg');
+    background-repeat: none;
+    height: 131px;
+    margin: 0 -12px 0 -14px;
+}
+#dylanbksp-logo-footer {
+    margin: 61px 40px 0 39px;
 }
 a {
-    color: #000;
+    color: #005A88;
     text-decoration: none;
-    background-color: rgba(0,0,0,0.075);
-    border: 2px solid rgba(0,0,0,0.075);
-    border-radius: 5px;
-    animation: background-color 2s;
 }
 a:hover {
-    background-color: rgba(0,0,0,0.05);
-    animation: background-color 2s;
+    color: #138CDD;
+    text-decoration: underline;
 }
-#mainnav {
-    list-style-type: none;
-    border-bottom-style: solid;
-    border-width: 1px;
-    background-color: #DDD;
-    padding: 10px;
-    margin: 0;
-    top: 0;
-    left: 0;
-    right: 0;
-    display: flex;
-    justify-content: center;
-    gap: 20px;
+a:active {
+    color: #F58220;
 }
-#maincontent {
-    margin-left: 10px;
-    margin-right: 10px;
+h1 {
+    color: #646464;
+    font-size: 20px;
+    font-weight: lighter;
+}
+* {
+    font-size: 13px;
+    line-height: 1.5em;
+    color: #4e4e4e;
+    /* margin: 0.25em 0em 15px 0em; */
+    font-family: 'Segoe UI';
 }
