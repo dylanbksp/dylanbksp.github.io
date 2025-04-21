@@ -16,10 +16,10 @@
 
                 <ul id="main-nav">
                     <li><a href="/">Home</a></li>
-                    <li><a href="/error">Error</a></li>
-                    <li><a href="/error">Error</a></li>
-                    <li><a href="/error">Error</a></li>
-                    <li><a href="/error">Very Long Error</a></li>
+                    <li><a href="/">Error</a></li>
+                    <li><a href="/">Error</a></li>
+                    <li><a href="/">Error</a></li>
+                    <li><a href="/">Very Long Error</a></li>
                 </ul>
 
             </div>
