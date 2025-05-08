@@ -1,5 +1,11 @@
-<script>
+<script lang="ts">
     import '../global.css';
+    
+    interface Props {
+        children?: import('svelte').Snippet;
+    }
+
+    let { children }: Props = $props();
 </script>
 
 <div id="main-background">
@@ -26,7 +32,7 @@
             
         </div>
 
-        <div id="main-content"><slot></slot></div>
+        <div id="main-content">{@render children?.()}</div>
         
         <div id="site-map">
             <img src="/images/page_div.jpg" alt="Page divider">

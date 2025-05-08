@@ -14,19 +14,19 @@
         return array;
     }
 
-    export let questionBank: string[][];
+    let { questionBank }: { questionBank: string[][] } = $props();
 
-    let questionNum = 0;
+    let questionNum = $state(0);
 
     let questionOrder = shuffle(questionBank);
 
-    $: question = questionOrder[questionNum][0];
+    let question = $derived(questionOrder[questionNum][0]);
 
-    $: correctAnswer = questionOrder[questionNum][1];
+    let correctAnswer = $derived(questionOrder[questionNum][1]);
 
-    $: questionAnswers = shuffle(questionOrder[questionNum].slice(1));
+    let questionAnswers = $derived(shuffle(questionOrder[questionNum].slice(1)));
 
-    let correctNum = 0;
+    let correctNum = $state(0);
 
     function checkAnswer(answer: string) {
         if (answer == correctAnswer) {
@@ -45,7 +45,7 @@
 
     <div id=answers>
         {#each questionAnswers as answer}
-            <button type="button" on:click={() => checkAnswer(answer)}>{answer}</button>
+            <button type="button" onclick={() => checkAnswer(answer)}>{answer}</button>
         {/each}
     </div>
 </div>
