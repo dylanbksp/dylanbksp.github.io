@@ -1,4 +1,6 @@
 <script lang="ts">
+    import { fade } from 'svelte/transition';
+
     // Function to apply the Fisher-Yates Shuffle
     function shuffle(array: any[]) {
 
@@ -20,6 +22,8 @@
 
     let questionOrder = shuffle(questionBank);
 
+    questionOrder.push(["","","","",""]);
+
     let question = $derived(questionOrder[questionNum][0]);
 
     let correctAnswer = $derived(questionOrder[questionNum][1]);
@@ -37,17 +41,21 @@
 </script>
 
 <div id="quiz-container">
-    <h1 id="question-counter">Question {questionNum + 1}</h1>
+    {#if (questionNum + 1 != questionBank.length)}
+        <div id="question-container" transition:fade>
+            <h1 id="question-counter">Question {questionNum + 1}</h1>
 
-    <p>{correctNum}/{questionNum}</p>
+            <p id="ratio">{correctNum}/{questionNum}</p>
 
-    <p id=question>{question}</p>
+            <p id="question">{question}</p>
 
-    <div id=answers>
-        {#each questionAnswers as answer}
-            <button type="button" onclick={() => checkAnswer(answer)}>{answer}</button>
-        {/each}
-    </div>
+            <div id="answers">
+                {#each questionAnswers as answer}
+                    <button type="button" onclick={() => checkAnswer(answer)}>{answer}</button>
+                {/each}
+            </div>
+        </div>
+    {/if}
 </div>
 
 <style>
@@ -55,9 +63,17 @@
         background-color: #DAF3FD;
         border-radius: 5px;
         margin: 0 25%;
+        position: relative;
     }
-    #quiz-container > * {
+    #question-container {
+        position: relative;
         text-align: center;
+        padding: 2%;
+    }
+    #ratio {
+        position: absolute;
+        top: -10px;
+        right: 10px;
     }
     #answers {
         margin: auto;
