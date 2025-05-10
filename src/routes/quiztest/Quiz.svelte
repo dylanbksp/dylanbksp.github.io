@@ -32,11 +32,13 @@
 
     let correctNum = $state(0);
 
+    let wasCorrect = $state(false);
+
+    let showResult = $state(false);
+
     function checkAnswer(answer: string) {
-        if (answer == correctAnswer) {
-            correctNum++;
-        }
-        questionNum++;
+        wasCorrect = answer == correctAnswer;
+        showResult = true;
     }
 </script>
 
@@ -55,6 +57,15 @@
                 {/each}
             </div>
         </div>
+        {#key showResult}
+            {#if showResult}
+                {#if wasCorrect}
+                    <p>nice</p>
+                {:else}
+                    <p>bruh</p>
+                {/if}
+            {/if}
+        {/key}
     {/if}
 </div>
 
@@ -68,7 +79,7 @@
     #question-container {
         position: relative;
         text-align: center;
-        padding: 2%;
+        padding: 2% 2% 4% 2%;
     }
     #ratio {
         position: absolute;
