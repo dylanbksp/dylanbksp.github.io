@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { cubicOut } from 'svelte/easing';
     import { fade } from 'svelte/transition';
 
     // Function to apply the Fisher-Yates Shuffle
@@ -36,15 +37,25 @@
 
     let showResult = $state(false);
 
-    function checkAnswer(answer: string) {
+    async function checkAnswer(answer: string) {
         wasCorrect = answer == correctAnswer;
+        if (wasCorrect) {
+            correctNum++;
+        }
         showResult = true;
+        await new Promise(r => setTimeout(r, 5000));
+        nextQuestion();
+    }
+
+    function nextQuestion() {
+        questionNum++;
+        showResult = false;
     }
 </script>
 
 <div id="quiz-container">
     {#if (questionNum + 1 != questionBank.length)}
-        <div id="question-container" transition:fade>
+        <div id="question-container" style="--question-blur: { showResult ? 8 : 0 }" transition:fade>
             <h1 id="question-counter">Question {questionNum + 1}</h1>
 
             <p id="ratio">{correctNum}/{questionNum}</p>
@@ -57,15 +68,18 @@
                 {/each}
             </div>
         </div>
-        {#key showResult}
-            {#if showResult}
+        {#if showResult}
+            <div id="result-popup" in:fade={{ delay: 500, easing: cubicOut, duration: 1000 }} 
+                                   out:fade={{ easing: cubicOut, duration: 1000 }}>
                 {#if wasCorrect}
-                    <p>nice</p>
+                    <h1>Correct!</h1>
                 {:else}
-                    <p>bruh</p>
+                    <h1>Incorrect...</h1>
                 {/if}
-            {/if}
-        {/key}
+
+                
+            </div>
+        {/if}
     {/if}
 </div>
 
@@ -80,6 +94,8 @@
         position: relative;
         text-align: center;
         padding: 2% 2% 4% 2%;
+        filter: blur(calc(var(--question-blur) * 1px));
+        transition: filter 500ms ease-out;
     }
     #ratio {
         position: absolute;
@@ -97,5 +113,17 @@
     #answers > * {
         width: 40%;
         height: 40px;
+    }
+    #result-popup {
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: #FFFFFF88;
+        text-align: center;
+    }
+    #result-popup > h1 {
+        font-size: 24px;
     }
 </style>
