@@ -56,11 +56,15 @@
 <div id="quiz-container">
     {#if (questionNum + 1 != questionBank.length)}
         <div id="question-container" style="--question-blur: { showResult ? 8 : 0 }" transition:fade>
-            <h1 id="question-counter">Question {questionNum + 1}</h1>
-
             <p id="ratio">{correctNum}/{questionNum}</p>
 
+            <h1 id="question-counter">Question {questionNum + 1}</h1>
+            
+            <div class="horizontal-separator"></div>
+
             <p id="question">{question}</p>
+            
+            <div class="horizontal-separator"></div>
 
             <div id="answers">
                 {#each questionAnswers as answer}
@@ -76,8 +80,6 @@
                 {:else}
                     <h1>Incorrect...</h1>
                 {/if}
-
-                
             </div>
         {/if}
     {/if}
@@ -85,25 +87,33 @@
 
 <style>
     #quiz-container {
-        background-color: #DAF3FD;
-        border-radius: 5px;
+        /* background-color: #DAF3FD; */
+        background-image: linear-gradient(#EFF6FE, #FFFFFF);
+        /* border-radius: 5px; */
         margin: 0 25%;
         position: relative;
     }
     #question-container {
         position: relative;
         text-align: center;
-        padding: 2% 2% 4% 2%;
+        padding: 10px;
         filter: blur(calc(var(--question-blur) * 1px));
         transition: filter 500ms ease-out;
+    }
+    #question {
+        line-height: 50px;
     }
     #ratio {
         position: absolute;
         top: -10px;
         right: 10px;
     }
+    .horizontal-separator {
+        background-image: linear-gradient(to right, #D4DEE400, #D4DEE4FF, #D4DEE400);
+        height: 1px;
+    }
     #answers {
-        margin: auto;
+        margin: 13.4px auto;
         display: flex;
         justify-content: space-evenly;
         align-content: space-around;
