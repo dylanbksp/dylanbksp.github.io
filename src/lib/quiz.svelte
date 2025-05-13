@@ -81,7 +81,9 @@
     {#if !quizType}
         <div id="type-chooser" transition:fade={{ easing: cubicIn, duration: 1000 }}>
             <h1>Hello!</h1>
-            <button type="button" onclick={() => {quizType = "multiple"}}>Multiple Choice</button>
+            <div class="answers">
+                <button type="button" onclick={() => {quizType = "multiple"}}>Multiple Choice</button>
+            </div>
         </div>
     {:else if (quizType == "multiple")}
         <div transition:fade={{ delay: 1000, easing: cubicOut, duration: 1000 }}>
@@ -97,7 +99,7 @@
                     
                     <div class="horizontal-center-separator"></div>
 
-                    <div id="answers">
+                    <div class="answers">
                         {#each questionAnswers as answer}
                             <button type="button" onclick={() => checkAnswer(answer)}>{answer}</button>
                         {/each}
@@ -150,14 +152,15 @@
         margin: 0 25%;
         position: relative;
     }
-    #quiz-container > * {
-        padding: 10px;
+    #type-chooser > * {
+        text-align: center;
     }
     #question-container {
         position: relative;
         text-align: center;
         filter: blur(calc(var(--question-blur) * 1px));
         transition: filter 500ms ease-out;
+        padding: 10px;
     }
     #question {
         line-height: 50px;
@@ -179,7 +182,7 @@
         background-image: linear-gradient(to right, #D4DEE400, #D4DEE4FF);
         height: 1px;
     }
-    #answers {
+    .answers {
         margin: 13.4px auto;
         display: flex;
         justify-content: space-evenly;
@@ -187,7 +190,7 @@
         flex-wrap: wrap;
         row-gap: 10px;
     }
-    #answers > * {
+    .answers > * {
         width: 40%;
         height: 40px;
     }
