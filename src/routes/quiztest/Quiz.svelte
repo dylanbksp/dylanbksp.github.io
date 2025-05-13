@@ -17,19 +17,30 @@
         return array;
     }
 
-    let { questionBank }: { questionBank: string[][] } = $props();
+    let { questionBank }: { questionBank: Object[] } = $props();
 
     let questionNum = $state(0);
 
     let questionOrder = shuffle(questionBank);
 
-    questionOrder.push(["","","","",""]);
+    questionOrder.push({});
 
-    let question = $derived(questionOrder[questionNum][0]);
+    let question = $derived(questionOrder[questionNum]["question"]);
 
-    let correctAnswer = $derived(questionOrder[questionNum][1]);
+    let correctAnswerIndex = $derived(questionOrder[questionNum]["correctAnswer"]);
 
-    let questionAnswers = $derived(shuffle(questionOrder[questionNum].slice(1)));
+    let correctAnswer = $derived(questionOrder[questionNum]["answers"][correctAnswerIndex]);
+
+    let questionAnswers = $derived.by(() => {
+        let shuffledAnswers = shuffle([...questionOrder[questionNum]["answers"]]);
+        let answerPool = shuffledAnswers.slice(0,4);
+        //alert(answerPool);
+        //alert(correctAnswer);
+        if (!(answerPool.includes(correctAnswer))) {
+            answerPool.splice(Math.floor(Math.random() * 4), 1, correctAnswer);
+        }
+        return answerPool;
+    });
 
     let correctNum = $state(0);
 
@@ -37,17 +48,28 @@
 
     let showResult = $state(false);
 
-    async function checkAnswer(answer: string) {
-        wasCorrect = answer == correctAnswer;
-        if (wasCorrect) {
-            correctNum++;
+    let chosenAnswer = $state("");
+
+    let explanation = $derived.by(() => {
+        if ("explanation" in questionOrder[questionNum]) {
+            return questionOrder[questionNum]["explanation"];
+        } else if ("explanations" in questionOrder[questionNum]) {
+            return questionOrder[questionNum]["explanations"][questionOrder[questionNum]["answers"].indexOf(chosenAnswer)];
         }
+    });
+
+    function checkAnswer(answer: string) {
+        chosenAnswer = answer;
+        wasCorrect = answer == correctAnswer;
         showResult = true;
-        await new Promise(r => setTimeout(r, 5000));
-        nextQuestion();
+        //await new Promise(r => setTimeout(r, 5000));
+        //nextQuestion();
     }
 
     function nextQuestion() {
+        if (wasCorrect) {
+            correctNum++;
+        }
         questionNum++;
         showResult = false;
     }
@@ -60,11 +82,11 @@
 
             <h1 id="question-counter">Question {questionNum + 1}</h1>
             
-            <div class="horizontal-separator"></div>
+            <div class="horizontal-center-separator"></div>
 
             <p id="question">{question}</p>
             
-            <div class="horizontal-separator"></div>
+            <div class="horizontal-center-separator"></div>
 
             <div id="answers">
                 {#each questionAnswers as answer}
@@ -74,12 +96,35 @@
         </div>
         {#if showResult}
             <div id="result-popup" in:fade={{ delay: 500, easing: cubicOut, duration: 1000 }} 
-                                   out:fade={{ easing: cubicOut, duration: 1000 }}>
+                                   out:fade={{            easing: cubicOut, duration: 1000 }}>
                 {#if wasCorrect}
                     <h1>Correct!</h1>
                 {:else}
                     <h1>Incorrect...</h1>
                 {/if}
+
+                <div id="commentary">
+                    <div id="your-answer">
+                        <h2>Your Answer</h2>
+                        <div class="horizontal-left-separator"></div>
+                        <p>{chosenAnswer}</p>
+                    </div>
+                    {#if !wasCorrect}
+                        <div id="correct-answer">
+                            <h2>Correct Answer</h2>
+                            <div class="horizontal-left-separator"></div>
+                            <p>{correctAnswer}</p>
+                        </div>
+                    {/if}
+                    <div id="explanation">
+                        <h2>Explanation</h2>
+                        <div class="horizontal-left-separator"></div>
+                        <p>{explanation}</p>
+                    </div>
+                    <div id="next-button">
+                        <button type="button" onclick={() => nextQuestion()}>Next</button>
+                    </div>
+                </div>
             </div>
         {/if}
     {/if}
@@ -108,7 +153,11 @@
         top: -10px;
         right: 10px;
     }
-    .horizontal-separator {
+    .horizontal-left-separator {
+        background-image: linear-gradient(to right, #D4DEE4FF, #D4DEE400);
+        height: 1px;
+    }
+    .horizontal-center-separator {
         background-image: linear-gradient(to right, #D4DEE400, #D4DEE4FF, #D4DEE400);
         height: 1px;
     }
@@ -135,5 +184,29 @@
     }
     #result-popup > h1 {
         font-size: 24px;
+    }
+    #commentary {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        grid-template-rows: 1fr 1fr 40px;
+        text-align: left;
+        margin: 13.4px;
+    }
+    #your-answer {
+        grid-column: 1;
+        grid-row: 1;
+    }
+    #correct-answer {
+        grid-column: 1;
+        grid-row: 2;
+    }
+    #explanation {
+        grid-column: 2;
+        grid-row: 1 / 3;
+    }
+    #next-button {
+        grid-column: 2;
+        grid-row: 3;
+        margin-left: auto;
     }
 </style>
