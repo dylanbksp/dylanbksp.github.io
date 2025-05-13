@@ -61,6 +61,16 @@
                         </li>
                     </ul>
                 </div>
+                <div class="site-column">
+                    <ul>
+                        <li class="site-link-header">
+                            <a href="/dev">Works-In-Progress</a>
+                        </li>
+                        <li>
+                            <a href="/dev/quiztest">Quiz Element</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
 
             <div id="site-footer">

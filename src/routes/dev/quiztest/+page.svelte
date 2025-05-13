@@ -1,5 +1,5 @@
 <script>
-    import Quiz from "./Quiz.svelte";
+    import { Quiz } from "$lib/index";
 
     // let testQuestions = [["What is 4 + 2?", "6", "4", "2", "8"],
     //                     ["What is 1 + 1?", "2", "5", "0", "1"],
@@ -22,7 +22,7 @@
                           "explanations": ["Although bananas aren't always yellow, they are usually depicted as yellow.",
                                            "There are many variations of the modern grape, typically purple and green, neither of which are yellow.",
                                            "Although they are close together in terms of hue, orange is not the same color as yellow.",
-                                           "This could be mistaken by the common yellow lemon, due to its similar color range and sourness, but limes are green instead of yellow."]
+                                           "This could be mistaken by the common yellow lemon, due to its similar color range and sourness, but limes are green instead of yellow. Please do not mention yellow limes."]
                          }];
 </script>
 

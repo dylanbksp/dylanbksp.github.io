@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { cubicOut } from 'svelte/easing';
+	import { cubicIn, cubicOut } from 'svelte/easing';
     import { fade } from 'svelte/transition';
 
     // Function to apply the Fisher-Yates Shuffle
@@ -18,6 +18,8 @@
     }
 
     let { questionBank }: { questionBank: Object[] } = $props();
+
+    let quizType = $state(""); // either "" or "multiple"
 
     let questionNum = $state(0);
 
@@ -76,57 +78,67 @@
 </script>
 
 <div id="quiz-container">
-    {#if (questionNum + 1 != questionBank.length)}
-        <div id="question-container" style="--question-blur: { showResult ? 8 : 0 }" transition:fade>
-            <p id="ratio">{correctNum}/{questionNum}</p>
-
-            <h1 id="question-counter">Question {questionNum + 1}</h1>
-            
-            <div class="horizontal-center-separator"></div>
-
-            <p id="question">{question}</p>
-            
-            <div class="horizontal-center-separator"></div>
-
-            <div id="answers">
-                {#each questionAnswers as answer}
-                    <button type="button" onclick={() => checkAnswer(answer)}>{answer}</button>
-                {/each}
-            </div>
+    {#if !quizType}
+        <div id="type-chooser" transition:fade={{ easing: cubicIn, duration: 1000 }}>
+            <h1>Hello!</h1>
+            <button type="button" onclick={() => {quizType = "multiple"}}>Multiple Choice</button>
         </div>
-        {#if showResult}
-            <div id="result-popup" in:fade={{ delay: 500, easing: cubicOut, duration: 1000 }} 
-                                   out:fade={{            easing: cubicOut, duration: 1000 }}>
-                {#if wasCorrect}
-                    <h1>Correct!</h1>
-                {:else}
-                    <h1>Incorrect...</h1>
-                {/if}
+    {:else if (quizType == "multiple")}
+        <div transition:fade={{ delay: 1000, easing: cubicOut, duration: 1000 }}>
+            {#if (questionNum + 1 != questionBank.length)}
+                <div id="question-container" style="--question-blur: { showResult ? 8 : 0 }" transition:fade>
+                    <p id="ratio">{correctNum}/{questionNum}</p>
 
-                <div id="commentary">
-                    <div id="your-answer">
-                        <h2>Your Answer</h2>
-                        <div class="horizontal-left-separator"></div>
-                        <p>{chosenAnswer}</p>
-                    </div>
-                    {#if !wasCorrect}
-                        <div id="correct-answer">
-                            <h2>Correct Answer</h2>
-                            <div class="horizontal-left-separator"></div>
-                            <p>{correctAnswer}</p>
-                        </div>
-                    {/if}
-                    <div id="explanation">
-                        <h2>Explanation</h2>
-                        <div class="horizontal-left-separator"></div>
-                        <p>{explanation}</p>
-                    </div>
-                    <div id="next-button">
-                        <button type="button" onclick={() => nextQuestion()}>Next</button>
+                    <h1 id="question-counter">Question {questionNum + 1}</h1>
+                    
+                    <div class="horizontal-center-separator"></div>
+
+                    <p id="question">{question}</p>
+                    
+                    <div class="horizontal-center-separator"></div>
+
+                    <div id="answers">
+                        {#each questionAnswers as answer}
+                            <button type="button" onclick={() => checkAnswer(answer)}>{answer}</button>
+                        {/each}
                     </div>
                 </div>
-            </div>
-        {/if}
+                {#if showResult}
+                    <div id="result-popup" in:fade={{ delay: 500, easing: cubicOut, duration: 1000 }} 
+                                        out:fade={{            easing: cubicOut, duration: 1000 }}>
+                        {#if wasCorrect}
+                            <h1>Correct!</h1>
+                        {:else}
+                            <h1>Incorrect...</h1>
+                        {/if}
+                        <div class="horizontal-center-separator"></div>
+                        <div id="commentary">
+                            <div id="your-answer">
+                                <h2>Your Answer</h2>
+                                <div class="horizontal-left-separator"></div>
+                                <p>{chosenAnswer}</p>
+                            </div>
+                            {#if !wasCorrect}
+                                <div id="correct-answer">
+                                    <h2>Correct Answer</h2>
+                                    <div class="horizontal-left-separator"></div>
+                                    <p>{correctAnswer}</p>
+                                </div>
+                            {/if}
+                            <div id="explanation">
+                                <h2>Explanation</h2>
+                                <div class="horizontal-left-separator"></div>
+                                <p>{explanation}</p>
+                            </div>
+                            <div id="next-bar" class="horizontal-right-separator"></div>
+                            <div id="next-button">
+                                <button type="button" onclick={() => nextQuestion()}>Next</button>
+                            </div>
+                        </div>
+                    </div>
+                {/if}
+            {/if}
+        </div>
     {/if}
 </div>
 
@@ -138,10 +150,12 @@
         margin: 0 25%;
         position: relative;
     }
+    #quiz-container > * {
+        padding: 10px;
+    }
     #question-container {
         position: relative;
         text-align: center;
-        padding: 10px;
         filter: blur(calc(var(--question-blur) * 1px));
         transition: filter 500ms ease-out;
     }
@@ -159,6 +173,10 @@
     }
     .horizontal-center-separator {
         background-image: linear-gradient(to right, #D4DEE400, #D4DEE4FF, #D4DEE400);
+        height: 1px;
+    }
+    .horizontal-right-separator {
+        background-image: linear-gradient(to right, #D4DEE400, #D4DEE4FF);
         height: 1px;
     }
     #answers {
@@ -188,10 +206,16 @@
     #commentary {
         display: grid;
         grid-template-columns: 1fr 2fr;
-        grid-template-rows: 1fr 1fr 40px;
+        grid-template-rows: 1fr 1fr 13.5px 40px;
         text-align: left;
         margin: 13.4px;
     }
+    /*
+    #commentary > :not(#next-button, #next-bar) {
+        background: #FFFFFF88;
+        border-radius: 5px;
+    }
+    */
     #your-answer {
         grid-column: 1;
         grid-row: 1;
@@ -204,9 +228,13 @@
         grid-column: 2;
         grid-row: 1 / 3;
     }
+    #next-bar {
+        grid-column: 1 / 3;
+        grid-row: 3;
+    }
     #next-button {
         grid-column: 2;
-        grid-row: 3;
+        grid-row: 4;
         margin-left: auto;
     }
 </style>
