@@ -1,6 +1,9 @@
 <script>
     import { Quiz } from "$lib/index";
 
+    let testInfo = {"title": "Basic Sample Quiz",
+                    "description": "This quiz showcases a set of three basic questions used for testing purposes."}
+
     // let testQuestions = [["What is 4 + 2?", "6", "4", "2", "8"],
     //                     ["What is 1 + 1?", "2", "5", "0", "1"],
     //                     ["Which fruit is yellow?", "Banana", "Orange", "Grape", "Lime"]];
@@ -26,4 +29,4 @@
                          }];
 </script>
 
-<Quiz questionBank={testQuestions}/>
+<Quiz info={testInfo} questionBank={testQuestions}/>

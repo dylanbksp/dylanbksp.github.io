@@ -17,7 +17,12 @@
         return array;
     }
 
-    let { questionBank }: { questionBank: Object[] } = $props();
+    interface Info {
+        title : string;
+        description : string;
+    }
+
+    let { info, questionBank }: { info: Info, questionBank: Object[] } = $props();
 
     let quizType = $state(""); // either "" or "multiple"
 
@@ -26,6 +31,12 @@
     let questionOrder = shuffle(questionBank);
 
     questionOrder.push({});
+
+    function resetQuestions() {
+        questionNum = 0;
+        questionOrder = shuffle(questionBank);
+        questionOrder.push({});
+    }
 
     let question = $derived(questionOrder[questionNum]["question"]);
 
@@ -73,20 +84,44 @@
             correctNum++;
         }
         questionNum++;
+        if (questionNum + 1 == questionBank.length) {
+            quizType = "done";
+        }
         showResult = false;
+    }
+
+    function getLetterGrade(score: number) {
+        let roundedScore = Math.round(score * 100)
+        if (roundedScore == 100) {
+            return "P";
+        } else if (roundedScore >= 90) {
+            return "A";
+        } else if (roundedScore >= 80) {
+            return "B";
+        } else if (roundedScore >= 75) {
+            return "C";
+        } else if (roundedScore >= 70) {
+            return "D";
+        } else if (roundedScore > 0) {
+            return "F";
+        } else {
+            return "Z";
+        }
     }
 </script>
 
 <div id="quiz-container">
     {#if !quizType}
         <div id="type-chooser" transition:fade={{ easing: cubicIn, duration: 1000 }}>
-            <h1>Hello!</h1>
+            <h1>{info["title"]}</h1>
+            <p>{info["description"]}</p>
             <div class="answers">
                 <button type="button" onclick={() => {quizType = "multiple"}}>Multiple Choice</button>
             </div>
         </div>
     {:else if (quizType == "multiple")}
-        <div transition:fade={{ delay: 1000, easing: cubicOut, duration: 1000 }}>
+        <div in:fade={{ delay: 1000, easing: cubicOut, duration: 1000 }}
+            out:fade={{              easing: cubicOut, duration: 1000 }}>
             {#if (questionNum + 1 != questionBank.length)}
                 <div id="question-container" style="--question-blur: { showResult ? 8 : 0 }" transition:fade>
                     <p id="ratio">{correctNum}/{questionNum}</p>
@@ -107,7 +142,7 @@
                 </div>
                 {#if showResult}
                     <div id="result-popup" in:fade={{ delay: 500, easing: cubicOut, duration: 1000 }} 
-                                        out:fade={{            easing: cubicOut, duration: 1000 }}>
+                                          out:fade={{             easing: cubicOut, duration: 1000 }}>
                         {#if wasCorrect}
                             <h1>Correct!</h1>
                         {:else}
@@ -141,6 +176,18 @@
                 {/if}
             {/if}
         </div>
+    {:else if (quizType == "done")}
+        <div id="final-result" in:fade={{ delay: 1000, easing: cubicOut, duration: 1000 }}>
+            <h1>Your Final Score</h1>
+            <div id="result-data-container">
+                <h1 id="final-ratio">{correctNum}/{questionNum}</h1>
+                <!--<p id="letter-score">{getLetterGrade(correctNum / questionNum)}</p>-->
+            </div>
+            <div class="answers">
+                <button type="button" onclick={() => {resetQuestions(); quizType = "multiple"}}>Restart</button>
+                <button type="button" onclick={() => {resetQuestions(); quizType = ""}}>Finish</button>
+            </div>
+        </div>
     {/if}
 </div>
 
@@ -152,6 +199,9 @@
         margin: 0 25%;
         position: relative;
     }
+    #type-chooser {
+        padding: 10px;
+    }
     #type-chooser > * {
         text-align: center;
     }
@@ -162,6 +212,29 @@
         transition: filter 500ms ease-out;
         padding: 10px;
     }
+    #final-result {
+        text-align: center;
+        padding: 10px;
+    }
+    #final-result > h1 {
+        font-size: 24px;
+    }
+    #result-data-container {
+        display: grid;
+    }
+    /*
+    #letter-score {
+        font-size: 160px;
+        font-weight: bold;
+        transform: rotate(10deg);
+        filter: opacity(0.3);
+        mask: linear-gradient(#FFFFFFFF, #00000000), alpha;
+        grid-column: 1;
+        grid-row: 1;
+        margin: -72px;
+        user-select: none;
+    }
+        */  
     #question {
         line-height: 50px;
     }
@@ -169,6 +242,12 @@
         position: absolute;
         top: -10px;
         right: 10px;
+    }
+    #final-ratio {
+        font-size: 36px;
+        font-weight: normal;
+        grid-column: 1;
+        grid-row: 1;
     }
     .horizontal-left-separator {
         background-image: linear-gradient(to right, #D4DEE4FF, #D4DEE400);
