@@ -34,6 +34,7 @@
 
     function resetQuestions() {
         questionNum = 0;
+        correctNum = 0;
         questionOrder = shuffle(questionBank);
         questionOrder.push({});
     }
@@ -45,7 +46,7 @@
     let correctAnswer = $derived(questionOrder[questionNum]["answers"][correctAnswerIndex]);
 
     let questionAnswers = $derived.by(() => {
-        let shuffledAnswers = shuffle([...questionOrder[questionNum]["answers"]]);
+        let shuffledAnswers = shuffle(questionOrder[questionNum]["answers"].slice());
         let answerPool = shuffledAnswers.slice(0,4);
         //alert(answerPool);
         //alert(correctAnswer);
@@ -80,14 +81,17 @@
     }
 
     function nextQuestion() {
-        if (wasCorrect) {
-            correctNum++;
-        }
-        questionNum++;
-        if (questionNum + 1 == questionBank.length) {
-            quizType = "done";
+        if (showResult) {
+            if (wasCorrect) {
+                correctNum++;
+            }
+            questionNum++;
+            if (questionNum + 1 == questionBank.length) {
+                quizType = "done";
+            }
         }
         showResult = false;
+        console.log(showResult);
     }
 
     function getLetterGrade(score: number) {
@@ -169,7 +173,7 @@
                             </div>
                             <div id="next-bar" class="horizontal-right-separator"></div>
                             <div id="next-button">
-                                <button type="button" onclick={() => nextQuestion()}>Next</button>
+                                <button type="button" onclick={() => nextQuestion()} disabled={!showResult}>Next</button>
                             </div>
                         </div>
                     </div>
@@ -177,12 +181,14 @@
             {/if}
         </div>
     {:else if (quizType == "done")}
-        <div id="final-result" in:fade={{ delay: 1000, easing: cubicOut, duration: 1000 }}>
+        <div id="final-result" in:fade={{ delay: 1000, easing: cubicOut, duration: 1000 }}
+                              out:fade={{              easing: cubicIn, duration: 1000 }}>
             <h1>Your Final Score</h1>
             <div id="result-data-container">
                 <h1 id="final-ratio">{correctNum}/{questionNum}</h1>
                 <!--<p id="letter-score">{getLetterGrade(correctNum / questionNum)}</p>-->
             </div>
+            <p>{quizType}</p>
             <div class="answers">
                 <button type="button" onclick={() => {resetQuestions(); quizType = "multiple"}}>Restart</button>
                 <button type="button" onclick={() => {resetQuestions(); quizType = ""}}>Finish</button>
