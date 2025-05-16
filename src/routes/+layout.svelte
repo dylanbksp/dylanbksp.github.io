@@ -45,32 +45,28 @@
             <img src="/images/page_div.jpg" alt="Page divider">
 
             <div id="site-columns">
-                <div class="site-column">
-                    <ul>
-                        <li class="site-link-header">
-                            <p>My friends' sites</p>
-                        </li>
-                        <li>
-                            <a href="https://www.kiwisin.com/" target="_blank">Kiwisin</a>
-                        </li>
-                        <li>
-                            <a href="https://www.drogobo.com/" target="_blank">Drogobo</a>
-                        </li>
-                        <li>
-                            <a href="https://teko.win/" target="_blank">DXD Tech</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="site-column">
-                    <ul>
-                        <li class="site-link-header">
-                            <a href="/dev">Works-In-Progress</a>
-                        </li>
-                        <li>
-                            <a href="/dev/quiztest">Quiz Element</a>
-                        </li>
-                    </ul>
-                </div>
+                <ul class="site-column">
+                    <li class="site-link-header">
+                        <p>My friends' sites</p>
+                    </li>
+                    <li>
+                        <a href="https://www.kiwisin.com/" target="_blank">Kiwisin</a>
+                    </li>
+                    <li>
+                        <a href="https://www.drogobo.com/" target="_blank">Drogobo</a>
+                    </li>
+                    <li>
+                        <a href="https://teko.win/" target="_blank">DXD Tech</a>
+                    </li>
+                </ul>
+                <ul class="site-column">
+                    <li class="site-link-header">
+                        <a href="/dev">Works-In-Progress</a>
+                    </li>
+                    <li>
+                        <a href="/dev/quiztest">Quiz Element</a>
+                    </li>
+                </ul>
             </div>
 
             <div id="site-footer">
