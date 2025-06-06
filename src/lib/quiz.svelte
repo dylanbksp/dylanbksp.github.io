@@ -24,19 +24,16 @@
 
     let { info, questionBank }: { info: Info, questionBank: Object[] } = $props();
 
-    let quizType = $state(""); // either "" or "multiple"
+    let quizType: string = $state("undecided");
 
     let questionNum = $state(0);
 
     let questionOrder = shuffle(questionBank);
 
-    questionOrder.push({});
-
     function resetQuestions() {
         questionNum = 0;
         correctNum = 0;
         questionOrder = shuffle(questionBank);
-        questionOrder.push({});
     }
 
     let question = $derived(questionOrder[questionNum]["question"]);
@@ -86,12 +83,11 @@
                 correctNum++;
             }
             questionNum++;
-            if (questionNum + 1 == questionBank.length) {
+            if (questionNum == questionBank.length) {
                 quizType = "done";
             }
         }
         showResult = false;
-        console.log(showResult);
     }
 
     function getLetterGrade(score: number) {
@@ -115,7 +111,7 @@
 </script>
 
 <div id="quiz-container">
-    {#if !quizType}
+    {#if (quizType == "undecided")}
         <div id="type-chooser" transition:fade={{ easing: cubicIn, duration: 1000 }}>
             <h1>{info["title"]}</h1>
             <p>{info["description"]}</p>
@@ -126,58 +122,56 @@
     {:else if (quizType == "multiple")}
         <div in:fade={{ delay: 1000, easing: cubicOut, duration: 1000 }}
             out:fade={{              easing: cubicOut, duration: 1000 }}>
-            {#if (questionNum + 1 != questionBank.length)}
-                <div id="question-container" style="--question-blur: { showResult ? 8 : 0 }" transition:fade>
-                    <p id="ratio">{correctNum}/{questionNum}</p>
+            <div id="question-container" style="--question-blur: { showResult ? 8 : 0 }" transition:fade>
+                <p id="ratio">{correctNum}/{questionNum}</p>
 
-                    <h1 id="question-counter">Question {questionNum + 1}</h1>
-                    
-                    <div class="horizontal-center-separator"></div>
+                <h1 id="question-counter">Question {questionNum + 1}</h1>
+                
+                <div class="horizontal-center-separator"></div>
 
-                    <p id="question">{question}</p>
-                    
-                    <div class="horizontal-center-separator"></div>
+                <p id="question">{question}</p>
+                
+                <div class="horizontal-center-separator"></div>
 
-                    <div class="answers">
-                        {#each questionAnswers as answer}
-                            <button type="button" onclick={() => checkAnswer(answer)}>{answer}</button>
-                        {/each}
-                    </div>
+                <div class="answers">
+                    {#each questionAnswers as answer}
+                        <button type="button" onclick={() => checkAnswer(answer)}>{answer}</button>
+                    {/each}
                 </div>
-                {#if showResult}
-                    <div id="result-popup" in:fade={{ delay: 500, easing: cubicOut, duration: 1000 }} 
-                                          out:fade={{             easing: cubicOut, duration: 1000 }}>
-                        {#if wasCorrect}
-                            <h1>Correct!</h1>
-                        {:else}
-                            <h1>Incorrect...</h1>
+            </div>
+            {#if showResult}
+                <div id="result-popup" in:fade={{ delay: 500, easing: cubicOut, duration: 1000 }} 
+                                        out:fade={{             easing: cubicOut, duration: 1000 }}>
+                    {#if wasCorrect}
+                        <h1>Correct!</h1>
+                    {:else}
+                        <h1>Incorrect...</h1>
+                    {/if}
+                    <div class="horizontal-center-separator"></div>
+                    <div id="commentary">
+                        <div id="your-answer">
+                            <h2>Your Answer</h2>
+                            <div class="horizontal-left-separator"></div>
+                            <p>{chosenAnswer}</p>
+                        </div>
+                        {#if !wasCorrect}
+                            <div id="correct-answer">
+                                <h2>Correct Answer</h2>
+                                <div class="horizontal-left-separator"></div>
+                                <p>{correctAnswer}</p>
+                            </div>
                         {/if}
-                        <div class="horizontal-center-separator"></div>
-                        <div id="commentary">
-                            <div id="your-answer">
-                                <h2>Your Answer</h2>
-                                <div class="horizontal-left-separator"></div>
-                                <p>{chosenAnswer}</p>
-                            </div>
-                            {#if !wasCorrect}
-                                <div id="correct-answer">
-                                    <h2>Correct Answer</h2>
-                                    <div class="horizontal-left-separator"></div>
-                                    <p>{correctAnswer}</p>
-                                </div>
-                            {/if}
-                            <div id="explanation">
-                                <h2>Explanation</h2>
-                                <div class="horizontal-left-separator"></div>
-                                <p>{explanation}</p>
-                            </div>
-                            <div id="next-bar" class="horizontal-right-separator"></div>
-                            <div id="next-button">
-                                <button type="button" onclick={() => nextQuestion()} disabled={!showResult}>Next</button>
-                            </div>
+                        <div id="explanation">
+                            <h2>Explanation</h2>
+                            <div class="horizontal-left-separator"></div>
+                            <p>{explanation}</p>
+                        </div>
+                        <div id="next-bar" class="horizontal-right-separator"></div>
+                        <div id="next-button">
+                            <button type="button" onclick={() => nextQuestion()} disabled={!showResult}>Next</button>
                         </div>
                     </div>
-                {/if}
+                </div>
             {/if}
         </div>
     {:else if (quizType == "done")}
