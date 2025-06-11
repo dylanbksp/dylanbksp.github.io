@@ -249,18 +249,6 @@
         grid-column: 1;
         grid-row: 1;
     }
-    .horizontal-left-separator {
-        background-image: linear-gradient(to right, #D4DEE4FF, #D4DEE400);
-        height: 1px;
-    }
-    .horizontal-center-separator {
-        background-image: linear-gradient(to right, #D4DEE400, #D4DEE4FF, #D4DEE400);
-        height: 1px;
-    }
-    .horizontal-right-separator {
-        background-image: linear-gradient(to right, #D4DEE400, #D4DEE4FF);
-        height: 1px;
-    }
     .answers {
         margin: 13.4px auto;
         display: flex;

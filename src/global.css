@@ -5,27 +5,31 @@
 }
 body {
     background-color: #DAF3FD;
-    width: 984px;
+    max-width: 984px;
     margin: 0 auto;
     padding: 0;
 }
 #main-background {
-    background-image: url('/images/bg_span_wol.gif');
-    background-repeat: repeat-y;
+    /* background-image: url('/images/bg_span_wol.gif');
+    background-repeat: repeat-y; */
+    border-image: url('/images/border_bkg_smol2_nomidfade.png') 131 16 fill / 131px 16px;
     min-height: 100vh;
 }
 #page-frame {
-    width: 958px;
+    max-width: 958px;
     padding: 0 12px 0 14px;
 }
 #navbar-background {
-    background-image: url('/images/header_bkg_wol.jpg');
+    background-image: url('/images/header_banner_wol.jpg');
+    /* background-position-x: 14px; */
+    background-size: contain;
     background-repeat: no-repeat;
     height: 129px;
-    margin: 0 -12px 0 -14px;
+    margin-right: 2px;
 }
 #navbar {
-    padding: 0 calc(12px + 25px) 0 calc(14px + 25px);
+    /* padding: 0 calc(12px + 25px) 0 calc(14px + 25px); */
+    padding: 0 25px;
 }
 #dylanbksp-logo-header {
     margin: 34px 0 14px 1px; 
@@ -100,10 +104,12 @@ body {
     font-weight: bold;
 }
 #site-footer {
-    background-image: url('/images/bg_footer_image_wol.jpg');
-    background-repeat: none;
+    background-image: url('/images/bg_footer_banner_wol.jpg');
+    background-position-y: bottom;
+    background-size: contain;
+    background-repeat: no-repeat;
     height: 131px;
-    margin: 0 -12px 0 -14px;
+    margin-right: 2px;
 }
 #dylanbksp-logo-footer {
     margin: 61px 40px 0 39px;
@@ -130,4 +136,20 @@ h1 {
     color: #4e4e4e;
     /* margin: 0.25em 0em 15px 0em; */
     font-family: 'Segoe UI';
+}
+.horizontal-left-separator {
+    background-image: linear-gradient(to right, #D4DEE4FF, #D4DEE400);
+    height: 1px;
+}
+.horizontal-center-separator {
+    background-image: linear-gradient(to right, #D4DEE400, #D4DEE4FF, #D4DEE400);
+    height: 1px;
+}
+.horizontal-right-separator {
+    background-image: linear-gradient(to right, #D4DEE400, #D4DEE4FF);
+    height: 1px;
+}
+.horizontal-long-center-separator {
+    background-image: linear-gradient(to right, #D4DEE400 0%, #D4DEE4FF 10%, #D4DEE4FF 90%, #D4DEE400 100%);
+    height: 1px;
 }

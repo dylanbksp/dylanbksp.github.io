@@ -35,14 +35,15 @@
         <div id="main-content">{@render children?.()}</div>
         
         <div id="site-map">
-            <img src="/images/page_div.jpg" alt="Page divider">
             
+            <div class="horizontal-long-center-separator"></div>
+
             <div id="site-explore">
                 <img src="/images/hdr_explore_58x25.gif" alt="explore">
                 <a href="/">My website</a>
             </div>
 
-            <img src="/images/page_div.jpg" alt="Page divider">
+            <div class="horizontal-long-center-separator"></div>
 
             <div id="site-columns">
                 <ul class="site-column">
