@@ -22,10 +22,10 @@
 
                 <ul id="main-nav">
                     <li><a href="/">Home</a></li>
+                    <li><a href="/bosnian">Bosnian</a></li>
+                    <!--<li><a href="/">Error</a></li>
                     <li><a href="/">Error</a></li>
-                    <li><a href="/">Error</a></li>
-                    <li><a href="/">Error</a></li>
-                    <li><a href="/">Very Long Error</a></li>
+                    <li><a href="/">Very Long Error</a></li>-->
                 </ul>
 
             </div>
