@@ -6,5 +6,5 @@
 
 <h2>Basics</h2>
 <ul>
-    <li><a href="/bosnian/writing-systems">Writing Systems</a></li>
+    <li><a href="/bosnian/orthography-and-phonology">Orthography and Phonology</a></li>
 </ul>

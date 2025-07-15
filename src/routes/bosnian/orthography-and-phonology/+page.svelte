@@ -1,10 +1,25 @@
-<h1>Writing Systems</h1>
+<script lang="ts">
+	import { Tooltip } from '$lib/index';
+    import { IPA_EXPLANATION, IPA_A_EXPLANATION, IPA_R_EXPLANATION } from '$lib/tooltipTexts';
+</script>
 
-<p>Bosnian utilizes two writing systems, the Latin alphabet and the Cyrillic alphabet. Although Bosnian is mainly
+<h1>Orthography and Phonology</h1>
+
+<p>
+    Bosnian utilizes two writing systems, the Latin alphabet and the Cyrillic alphabet. Although Bosnian is mainly
     written in Latin, it is still best to be familiar with both alphabets, as there will likely be many documents and
     texts that you will need to read that are written in Cyrillic. In terms of the Latin alphabet, you should pay close
     attention to the unique letters <em>č</em>, <em>ć</em>, <em>dž</em>, <em>đ</em>, <em>lj</em>, <em>nj</em>, <em>š</em>,
-    and <em>ž</em>. Additionally, pay attention to the vowels and the letters <em>c</em> and <em>r</em>, as they make
+    and <em>ž</em>.
+</p>
+
+<p>
+    For the pairs of <em>č/ć (ч/ћ)</em> and <em>dž/đ (џ/ђ)</em>, the difference can be described based off of the 
+    "hardness" of the former and the "softness" of the latter. In more descriptive terms, the former's articulation is 
+    palatalized, which means that the body of the tongue is raised towards the top of the mouth. This leads to the general 
+    location of articulation to be pushed slightly towards the back of the mouth. If you're having trouble with 
+    differentiating your pronunciation between the two, you can pronounce them the same way while still being intelligible 
+    to listeners. Additionally, pay attention to the vowels and the letters <em>c</em> and <em>r</em>, as they make
     different sounds than in English.
 </p>
 
@@ -16,7 +31,14 @@
             <thead>
                 <tr>
                     <th>Glyph</th>
-                    <th>IPA Notation</th>
+                    <th>
+                        IPA Notation 
+                        <Tooltip text={IPA_EXPLANATION}/>
+                        <!--<span class="tooltip">
+                            <img src="/images/tooltip_3.gif" alt="tooltip indicator">
+                            <span class="tooltiptext" style="font-weight: normal">Yo gurt</span>
+                        </span>-->
+                    </th>
                     <th>English Example</th>
                 </tr>
             </thead>
@@ -24,7 +46,7 @@
                 <tr>
                     <td>A a</td>
                     <td>/a/</td>
-                    <td>a as in c<u>a</u>t</td>
+                    <td>a as in <u>a</u>lph<u>a</u> <Tooltip text={IPA_A_EXPLANATION}/></td>
                 </tr>
                 <tr>
                     <td>B b</td>
@@ -64,7 +86,7 @@
                 <tr>
                     <td>E e</td>
                     <td>/ɛ/</td>
-                    <td>e as in b<u>e</u>t</td>
+                    <td>e as in <u>e</u>cho</td>
                 </tr>
                 <tr>
                     <td>F f</td>
@@ -94,7 +116,7 @@
                 <tr>
                     <td>K k</td>
                     <td>/k/</td>
-                    <td>k as in coo<u>k</u>ie</td>
+                    <td>c as in <u>c</u>ake</td>
                 </tr>
                 <tr>
                     <td>L l</td>
@@ -124,7 +146,7 @@
                 <tr>
                     <td>O o</td>
                     <td>/ɔ/</td>
-                    <td>o as in b<u>o</u>red</td>
+                    <td>o as in <u>o</u>range</td>
                 </tr>
                 <tr>
                     <td>P p</td>
@@ -134,7 +156,7 @@
                 <tr>
                     <td>R r</td>
                     <td>/ɾ/</td>
-                    <td>tt as in be<u>tt</u>er</td>
+                    <td>tt as in be<u>tt</u>er <Tooltip text={IPA_R_EXPLANATION}/></td>
                 </tr>
                 <tr>
                     <td>S s</td>
@@ -182,7 +204,7 @@
             <thead>
                 <tr>
                     <th>Glyph</th>
-                    <th>IPA Notation</th>
+                    <th>IPA Notation <Tooltip text={IPA_EXPLANATION}/></th>
                     <th>English Example</th>
                 </tr>
             </thead>
@@ -190,7 +212,7 @@
                 <tr>
                     <td>А а</td>
                     <td>/a/</td>
-                    <td>a as in c<u>a</u>t</td>
+                    <td>a as in <u>a</u>lph<u>a</u> <Tooltip text={IPA_A_EXPLANATION}/></td>
                 </tr>
                 <tr>
                     <td>Б б</td>
@@ -220,7 +242,7 @@
                 <tr>
                     <td>Е е</td>
                     <td>/ɛ/</td>
-                    <td>e as in b<u>e</u>t</td>
+                    <td>e as in <u>e</u>cho</td>
                 </tr>
                 <tr>
                     <td>Ж ж</td>
@@ -245,7 +267,7 @@
                 <tr>
                     <td>К к</td>
                     <td>/k/</td>
-                    <td>k as in coo<u>k</u>ie</td>
+                    <td>c as in <u>c</u>ake</td>
                 </tr>
                 <tr>
                     <td>Л л</td>
@@ -275,7 +297,7 @@
                 <tr>
                     <td>О о</td>
                     <td>/ɔ/</td>
-                    <td>o as in b<u>o</u>red</td>
+                    <td>o as in <u>o</u>range</td>
                 </tr>
                 <tr>
                     <td>П п</td>
@@ -285,7 +307,7 @@
                 <tr>
                     <td>Р р</td>
                     <td>/ɾ/</td>
-                    <td>tt as in be<u>tt</u>er</td>
+                    <td>tt as in be<u>tt</u>er <Tooltip text={IPA_R_EXPLANATION}/></td>
                 </tr>
                 <tr>
                     <td>С с</td>

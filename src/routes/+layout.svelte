@@ -68,6 +68,14 @@
                         <a href="/dev/quiztest">Quiz Element</a>
                     </li>
                 </ul>
+                <ul class="site-column">
+                    <li class="site-link-header">
+                        <a href="/bosnian">Bosnian Lessons</a>
+                    </li>
+                    <li>
+                        <a href="/bosnian/orthography-and-phonology">Orthography and Phonology</a>
+                    </li>
+                </ul>
             </div>
 
             <div id="site-footer">
